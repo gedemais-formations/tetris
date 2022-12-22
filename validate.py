@@ -1,5 +1,3 @@
-import os
-
 score = 0
 
 def check_columns(board, width, height):
@@ -38,7 +36,6 @@ def delete_row(board, row):
         if cell == 2:
             board[row][i] = 1
             score += 1
-            print(score)
 
     return board
 
@@ -50,7 +47,6 @@ def delete_column(board, height, col):
         if board[y][col] == 2:
             board[y][col] = 1;
             score += 1
-            print(score)
 
     return board
 
@@ -75,7 +71,6 @@ def validate_and_place(board, width, height, shape, column, row, piece, fails):
     # Iteration over every cell of the matrix
     for y in range(piece_size):
         for x in range(piece_size):
-            print(width, height, len(board), piece_x + x, piece_y + y)
             # Collision check to avoid misplacements
             if piece[y][x] == 1 and board[piece_y + y][piece_x + x] != 1:
                 # If the piece can not be placed, then it is a fail.

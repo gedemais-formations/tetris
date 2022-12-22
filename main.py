@@ -73,7 +73,6 @@ def setup():
 
     # Clear screen and draw the empty shaped board
     os.system('clear')
-    print(len(board))
     draw_board(board, width, height, shape)
 
     # Game infinite loop condition

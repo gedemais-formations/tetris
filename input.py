@@ -19,8 +19,6 @@ def read_alphachar_input(input_phrase, maxi):
             print("\nFormat invalide. Essayez encore :")
             continue # Back to start
 
-        print(tmp.lower()[0], maxi)
-
         if tmp.isalpha and ord(tmp.lower()[0]) >= ord(maxi):
             print("Coordonnee invalide. Essayez encore :")
             continue

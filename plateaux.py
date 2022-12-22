@@ -18,7 +18,7 @@ def draw_circle(board, map_width, map_height):
             if dist([n_x, n_y], [0.5, 0.5]) <= 0.5:
                 board[y][x] = 1
 
-    return board
+    return map_height, board
 
 
 def draw_triangle(board, map_width, map_height):
@@ -29,35 +29,47 @@ def draw_triangle(board, map_width, map_height):
         - map_width : Game board width in cells.
         - map_height : Game board height in cells.
     """
-    # Iterateur permettant de remplir le plateau de bas en haut
+    # Iterator used to fill the matrix with lines that will form the triangle.
     y = map_height - 1
     half_width = floor(float(map_width) / 2.0)
-    line_size = floor(map_width / 2)
-    # Tant que le debut et la fin de la ligne ne sont pas egaux, le triangle est incomplet
+    line_size = half_width
+    # While the line is not over
     while (line_size >= 0):
-        # On itere sur la ligne pour placer la valeur 1
-        #print('\n-------------------', half_width - line_size, half_width + line_size, '\n-------------------')
+        # We iterate on the line to fill the 1 value
         for x in range(half_width - round(line_size), half_width + round(line_size)):
-            #   print(y, x)
             board[y][x] = 1
 
-        line_size -= (map_width / map_height) / 2.0
+        # Line size decrease as we reach the top
+        line_size -= 1.0
         y -= 1
 
-    return board
+    # Looping over the board matrix to remove any useless line
+    i = 0
+    while i < len(board):
+        # If the line does not contain a single 1 value, it is useless
+        if 1 not in board[i]:
+            del board[i]
+            continue
+        i += 1
+
+    return len(board), board
 
 
 def draw_losange(board, map_width, map_height):
-    # Iterateur permettant de remplir le plateau de bas en haut
+    """
+        Draws a losange shape with 1 values in the map.
+        @parameters :
+        - board : 2D matrix that represents the game board.
+        - map_width : Game board width in cells.
+        - map_height : Game board height in cells.
+    """
+    # Iterators used to fill the matrix with lines that will form the losange.
     y_up = 0
     y_down = map_height - 1
     half_width = float(map_width) / 2.0
     line_size = 0
     max_line_size = floor(map_width / 2)
-    # Tant que le debut et la fin de la ligne ne sont pas egaux, le triangle est incomplet
     while (line_size <= max_line_size):
-        # On itere sur la ligne pour placer la valeur 1
-        print(floor(half_width - line_size), ceil(half_width + line_size))
         for x in range(floor(half_width - line_size), ceil(half_width + line_size)):
             board[y_up][x] = 1
             board[y_down][x] = 1
@@ -66,7 +78,10 @@ def draw_losange(board, map_width, map_height):
         y_up += 1
         y_down -= 1
 
+    return map_height, board
 
+
+# Array of functions allawing us to call any of them with an index chosen by the user.
 board_functions = [
         draw_circle,
         draw_triangle,
